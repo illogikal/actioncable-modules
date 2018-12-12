@@ -10,9 +10,10 @@ class Connection
   @reopenDelay: 500
 
   constructor: (@consumer) ->
-    {@subscriptions} = @consumer
+    {@subscriptions, @jwt} = @consumer
     @monitor = new ConnectionMonitor this
     @disconnected = true
+    @protocols = [protocols..., @jwt]
 
   send: (data) ->
     if @isOpen()
@@ -28,7 +29,7 @@ class Connection
     else
       log("Opening WebSocket, current state is #{@getState()}, subprotocols: #{protocols}")
       @uninstallEventHandlers() if @webSocket?
-      @webSocket = new WebSocket(@consumer.url, protocols)
+      @webSocket = new WebSocket(@consumer.url, @protocols)
       @installEventHandlers()
       @monitor.start()
       true

@@ -28,7 +28,7 @@ Subscription  = require('./subscription')
 # Any channel subscriptions which existed prior to disconnecting will
 # automatically resubscribe.
 class Consumer
-  constructor: (@url) ->
+  constructor: (@url, @jwt) ->
     @subscriptions = new Subscriptions this
     @connection = new Connection this
 

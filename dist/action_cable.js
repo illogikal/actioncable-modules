@@ -7,12 +7,12 @@ default_mount_path = require('./action_cable/constants').default_mount_path;
 ref = require('./action_cable/log'), startDebugging = ref.startDebugging, stopDebugging = ref.stopDebugging;
 
 module.exports = {
-  createConsumer: function(url) {
+  createConsumer: function(url, jwt) {
     var ref1;
     if (url == null) {
       url = (ref1 = this.getConfig("url")) != null ? ref1 : default_mount_path;
     }
-    return new Consumer(this.createWebSocketURL(url));
+    return new Consumer(this.createWebSocketURL(url), jwt);
   },
   getConfig: function(name) {
     var element;

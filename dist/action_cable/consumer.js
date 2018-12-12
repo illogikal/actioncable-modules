@@ -7,8 +7,9 @@ Subscriptions = require('./subscriptions');
 Subscription = require('./subscription');
 
 Consumer = (function() {
-  function Consumer(url) {
+  function Consumer(url, jwt) {
     this.url = url;
+    this.jwt = jwt;
     this.subscriptions = new Subscriptions(this);
     this.connection = new Connection(this);
   }

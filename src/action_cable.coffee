@@ -3,9 +3,9 @@ Consumer                        = require('./action_cable/consumer')
 {startDebugging, stopDebugging} = require('./action_cable/log')
 
 module.exports =
-  createConsumer: (url) ->
+  createConsumer: (url, jwt) ->
     url ?= @getConfig("url") ? default_mount_path
-    new Consumer @createWebSocketURL(url)
+    new Consumer @createWebSocketURL(url), jwt
 
   getConfig: (name) ->
     element = document.head.querySelector("meta[name='action-cable-#{name}']")
@@ -21,7 +21,7 @@ module.exports =
       a.href
     else
       url
-  
+
   # PATCH
   # Expose startDebugging and stopDebugging for client usage
   debug:

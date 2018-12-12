@@ -15,11 +15,13 @@ Connection = (function() {
   Connection.reopenDelay = 500;
 
   function Connection(consumer) {
+    var ref1;
     this.consumer = consumer;
     this.open = bind(this.open, this);
-    this.subscriptions = this.consumer.subscriptions;
+    ref1 = this.consumer, this.subscriptions = ref1.subscriptions, this.jwt = ref1.jwt;
     this.monitor = new ConnectionMonitor(this);
     this.disconnected = true;
+    this.protocols = slice.call(protocols).concat([this.jwt]);
   }
 
   Connection.prototype.send = function(data) {
@@ -40,7 +42,7 @@ Connection = (function() {
       if (this.webSocket != null) {
         this.uninstallEventHandlers();
       }
-      this.webSocket = new WebSocket(this.consumer.url, protocols);
+      this.webSocket = new WebSocket(this.consumer.url, this.protocols);
       this.installEventHandlers();
       this.monitor.start();
       return true;
