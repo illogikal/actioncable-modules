@@ -17,14 +17,14 @@ class ConnectionMonitor
       @startedAt = now()
       delete @stoppedAt
       @startPolling()
-      document.addEventListener("visibilitychange", @visibilityDidChange)
+      # document.addEventListener("visibilitychange", @visibilityDidChange)
       log("ConnectionMonitor started. pollInterval = #{@getPollInterval()} ms")
 
   stop: ->
     if @isRunning()
       @stoppedAt = now()
       @stopPolling()
-      document.removeEventListener("visibilitychange", @visibilityDidChange)
+      # document.removeEventListener("visibilitychange", @visibilityDidChange)
       log("ConnectionMonitor stopped")
 
   isRunning: ->
